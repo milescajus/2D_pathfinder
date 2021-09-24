@@ -1,2 +1,3 @@
-# 2D_pathfinder
-C# 2D Pathfinder
+# C# 2D Pathfinder
+
+Work in progress for a 2D pathfinder algorithm written in C#.
