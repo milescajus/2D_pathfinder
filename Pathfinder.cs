@@ -26,6 +26,13 @@ class Pathfinder
 						  
 		InitGrid(blocked);
 		PrintGrid();
+        for (int i = 0; i < grid.GetLength(0); i++) {
+            for (int j = 0; i < grid.GetLength(1); i++) {
+                origin = new int[] {4, 5};
+                Move(new int[] {i, j});
+                PrintGrid();
+            }
+        }
 	}
 	
 	public static void PrintGrid() {
@@ -54,31 +61,32 @@ class Pathfinder
 	}
 	
 	public static void Move(int[] dest) {
-		foreach (int[] nb in FindNeighbors()) {
-			if (grid[nb[1], nb[0]] && m_points > 0) {
-				// free neighbor exists
-				if (nb[0] == dest[0] || nb[1] == dest[1]) {
-					// neighbor aligns with destination
-					origin = nb;
-					m_points--;
-					break;
-				} else {
-					// IMPLEMENT TURNS
-				}
-			} else {
-				Console.WriteLine("NO MOVES");
-			}
-		}
+        while (m_points > 0) {
+		    foreach (int[] nb in FindNeighbors()) {
+			    if (grid[nb[1], nb[0]]) {
+				    // free neighbor exists
+				    if (nb[0] == dest[0] || nb[1] == dest[1]) {
+					    // neighbor aligns with destination
+					    origin = nb;
+					    m_points--;
+					    return;
+				    }
+			    } else {
+				    Console.WriteLine("NO MOVES");
+                    return;
+			    }
+		    }
+        }
 	}
 	
-	public static int[] FindNeighbors() {
+	public static int[][] FindNeighbors() {
 		int[] north = new int[] {origin[1] - 1, origin[0]};
 		int[] south = new int[] {origin[1] + 1, origin[0]};
 		int[] east = new int[] {origin[1], origin[0] + 1};
 		int[] west = new int[] {origin[1], origin[0] - 1};
 		
-		int[][] nbs = {north, south, east, west};
 		
-		return nbs;
+		
+		return new int[][] {north, south, east, west};
 	}
 }
