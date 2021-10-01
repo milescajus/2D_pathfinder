@@ -61,7 +61,7 @@ class Pathfinder
 	}
 	
 	public static void Move(int[] dest) {
-        while (m_points > 0) {
+        while (m_points > 0) { // FIXME: INFINITE LOOP
 		    foreach (int[] nb in FindNeighbors()) {
 			    if (grid[nb[1], nb[0]]) {
 				    // free neighbor exists
@@ -70,7 +70,10 @@ class Pathfinder
 					    origin = nb;
 					    m_points--;
 					    return;
-				    }
+                    } else {
+                        // move in either x or y direction
+                        // depending on which ordinate is closer to destination equivalent
+                    }
 			    } else {
 				    Console.WriteLine("NO MOVES");
                     return;
