@@ -26,6 +26,7 @@ class Pathfinder
 						  
 		InitGrid(blocked);
 		PrintGrid();
+        /*
         for (int i = 0; i < grid.GetLength(0); i++) {
             for (int j = 0; i < grid.GetLength(1); i++) {
                 origin = new int[] {4, 5};
@@ -33,6 +34,10 @@ class Pathfinder
                 PrintGrid();
             }
         }
+        */
+
+        int[] dest = new int[] {1, 1};
+        Move(dest);
 	}
 	
 	public static void PrintGrid() {
@@ -46,6 +51,7 @@ class Pathfinder
 			}
 			Console.WriteLine();
 		}
+        Console.WriteLine();
 	}
 	
 	public static void InitGrid(int[,] blocked) {
@@ -61,24 +67,23 @@ class Pathfinder
 	}
 	
 	public static void Move(int[] dest) {
-        while (m_points > 0) { // FIXME: INFINITE LOOP
+        int[] best_nb = origin;
+
+        while (m_points > 0) {
 		    foreach (int[] nb in FindNeighbors()) {
-			    if (grid[nb[1], nb[0]]) {
-				    // free neighbor exists
-				    if (nb[0] == dest[0] || nb[1] == dest[1]) {
-					    // neighbor aligns with destination
-					    origin = nb;
-					    m_points--;
-					    return;
-                    } else {
-                        // move in either x or y direction
-                        // depending on which ordinate is closer to destination equivalent
-                    }
-			    } else {
-				    Console.WriteLine("NO MOVES");
-                    return;
-			    }
+			    if (grid[nb[1], nb[0]]) { // free neighbor exists
+                    double cur_dist = Math.Pow(dest[0] - nb[0], 2) + Math.Pow(dest[1] - nb[1], 2);
+                    double best_dist = Math.Pow(dest[0] - best_nb[0], 2) + Math.Pow(dest[1] - best_nb[1], 2);
+				    if (cur_dist < best_dist) { // squared distance of neighbor is less than current position
+                        best_nb = nb;
+					    break;
+			        } else { continue; } // look for better neighbors
+                }
 		    }
+			origin = best_nb;
+			m_points--;
+            Console.WriteLine("Remaining moves: " + m_points);
+            PrintGrid();
         }
 	}
 	
