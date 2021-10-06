@@ -44,7 +44,9 @@ class Pathfinder
     
     public static void PrintGrid() {
         for (int i = 0; i < grid.GetLength(0); i++) {
+
             for (int j = 0; j < grid.GetLength(1); j++) {
+
                 if (i == origin[1] && j == origin[0] /*i == 5 && j == 4*/) {
                     Console.Write("[X]");
                 } else {
@@ -57,6 +59,7 @@ class Pathfinder
     
     public static void InitGrid(int[,] blocked) {
         for (int i = 0; i < grid.GetLength(0); i++) {
+
             for (int j = 0; j < grid.GetLength(1); j++) {
                 grid[i, j] = true;
             }
