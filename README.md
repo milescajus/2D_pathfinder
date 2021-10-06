@@ -8,7 +8,7 @@ Compile and run with movement points as a command-line argument, e.g.:
 
 Walls must be edited manually in `Pathfinder.cs`.
 
-Currently simply prints the grid in the terminal with each move.
+Currently simply prints the grid in the terminal with each move, where `[ ]` is a free space, `[X]` is the current position, and `[*]` is a wall. Walls are also placed at previous positions to avoid retracing or loops.
 
 Example Output
 ---
