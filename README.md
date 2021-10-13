@@ -10,6 +10,10 @@ Walls must be edited manually in `Pathfinder.cs`.
 
 Currently simply prints the grid in the terminal with each move, where `[ ]` is a free space, `[X]` is the current position, and `[*]` is a wall. Walls are also placed at previous positions to avoid retracing or loops.
 
+## Runtime Comparison
+
+There are two methods for finding the optimal path to the target position, `Move()` and `Move_alt()`. The former uses a dictionary to store all possible moves and sorts the keys to determine the best move, and the latter simply stores the best distance as a `double` and compares with each free neighbor. The intention is to perform a runtime analysis to see which approach is more efficient and effective.
+
 Example Output
 ---
 `> Pathfinder.exe 10` where target is `[4, 7]`
