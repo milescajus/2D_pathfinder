@@ -6,6 +6,8 @@ Compile and run with movement points as a command-line argument, e.g.:
 
 `Pathfinder.exe 6`
 
+UNIX systems should use `csc` for compilation and `mono` to run the executable.
+
 Walls must be edited manually in `Pathfinder.cs`.
 
 Currently simply prints the grid in the terminal with each move, where `[ ]` is a free space, `[X]` is the current position, and `[*]` is a wall. Past moves are tracked and avoided to prevent getting stuck in loops.
