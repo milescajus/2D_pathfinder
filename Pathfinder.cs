@@ -1,3 +1,8 @@
+// D* (DumbStar or Dumpster) Algorithm
+// by MilesCajus
+//
+// (c) 2021
+
 using System;
 using System.Collections.Generic;
 

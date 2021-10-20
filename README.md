@@ -1,6 +1,6 @@
 # C# 2D Pathfinder
 
-C# class for a 2D grid-based pathfinder algorithm.
+C# class for a 2D grid-based pathfinder algorithm, lovingly named D\*, DumbStar, or Dumpster.
 
 Compile and run with movement points as a command-line argument, e.g.:
 
@@ -18,7 +18,7 @@ Changelog
 TODO
 ---
 - switch to using Tuples for all coordinates
-- create graphical representation / application (potentially Godot)
+- create graphical representation based on Godot's A\* demo
 - compare default `List.Sort()` with `Move_alt()`
 
 ## Runtime Comparison
