@@ -18,6 +18,8 @@ Changelog
 TODO
 ---
 - switch to using Tuples for all coordinates
+- create graphical representation / application (potentially Godot)
+- compare default `List.Sort()` with `Move_alt()`
 
 ## Runtime Comparison
 
