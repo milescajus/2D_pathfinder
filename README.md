@@ -21,7 +21,7 @@ There are two methods for finding the optimal path to the target position, `Move
 
 Example Output
 ---
-`> Pathfinder.exe 10` where target is `[4, 7]`
+`> Pathfinder.exe 12` where target is `[4, 7]`
 
 ```
 Initializing Grid...
