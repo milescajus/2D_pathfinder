@@ -40,8 +40,8 @@ class Pathfinder
            */
 
         int[] dest = new int[] {4, 7};
-        // Move(dest);
-        Move_alt(dest);
+        Move(dest);
+        // Move_alt(dest);
     }
 
     public static void PrintGrid() {
@@ -73,14 +73,17 @@ class Pathfinder
     }
 
     public static void Move(int[] dest) {
+        var past_moves = new HashSet<(int, int)>();
+
         while (m_points > 0 && !(origin[0] == dest[0] && origin[1] == dest[1])) {
             // has movement points and not at destination
             var nbs = new Dictionary<double, int[]>();
             var dists = new List<double>();
 
             foreach (int[] nb in FindNeighbors()) {
+                if (grid[nb[1], nb[0]] && !(past_moves.Contains((nb[0], nb[1])))) {
+                    // free neighbor exists and has not been moved to before
 
-                if (grid[nb[1], nb[0]]) { // free neighbor exists
                     double distance = Math.Pow(dest[0] - nb[0], 2) + Math.Pow(dest[1] - nb[1], 2);
 
                     if (nbs.ContainsKey(distance)) {
@@ -100,9 +103,8 @@ class Pathfinder
 
             dists.Sort();
 
-            // TODO: find alternative to creating walls for preventing getting caught in a loop
-            grid[origin[1], origin[0]] = false; // block previous path
-            origin = nbs[dists[0]];             // move to neighbor closest to destination
+            past_moves.Add((origin[0], origin[1])); // add current location to past_moves
+            origin = nbs[dists[0]];                 // move to neighbor closest to destination
             m_points--;
 
             PrintGrid();
