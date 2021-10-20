@@ -15,6 +15,10 @@ Changelog
 - now tracking past moves with a `HashSet` to prevent looping, rather than placing a wall at previous location
 - added `Move_alt()` for runtime analysis
 
+TODO
+---
+- switch to using Tuples for all coordinates
+
 ## Runtime Comparison
 
 There are two methods for finding the optimal path to the target position, `Move()` and `Move_alt()`. The former uses a dictionary to store all possible moves and sorts the keys to determine the best move, and the latter simply stores the best distance as a `double` and compares with each free neighbor. The intention is to perform a runtime analysis to see which approach is more efficient and effective.
