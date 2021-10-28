@@ -14,6 +14,7 @@ Currently simply prints the grid in the terminal with each move, where `[ ]` is 
 
 Changelog
 ---
+- added `m_points` comparison to see if `Move()` reaches the target with fewer moves on average than `Move_alt()` (higher number means more moves remaining, i.e. fewer moves used to reach target)
 - now tracking past moves with a `HashSet` to prevent looping, rather than placing a wall at previous location
 - added `Move_alt()` for runtime analysis
 
