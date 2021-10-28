@@ -15,12 +15,43 @@ class Pathfinder
     static int m_points;
 
     public static void Main(string[] args) {
+        int[] norm = new int[100];
+        int[] alt = new int[100];
+        float avg = 0;
+
+        for (int i = 0; i < norm.Length ; i++) {
+            m_points = 12; // Int32.Parse(args[0]);
+            RunSim(false);
+            norm[i] = m_points;
+        }
+
+        for (int i = 0; i < alt.Length ; i++) {
+            m_points = 12; // Int32.Parse(args[0]);
+            RunSim(true);
+            alt[i] = m_points;
+        }
+
+        foreach (int n in norm){
+            avg += n;
+        }
+
+        Console.WriteLine(avg / norm.Length);
+
+        avg = 0;
+
+        foreach (int n in alt){
+            avg += n;
+        }
+
+        Console.WriteLine(avg / alt.Length);
+
+    }
+
+    public static void RunSim(bool alt, int print=0) {
         width = 10;
         height = 12;
         grid = new bool[height, width];
-        m_points = Int32.Parse(args[0]);
         origin = new int[] {4, 5};
-
 
         int[,] blocked = {{2, 2}, {5, 2}, {6, 2},
             {2, 3}, {6, 3},
@@ -30,11 +61,11 @@ class Pathfinder
             {2, 8},
             {2, 9}, {3, 9}, {4, 9}, {5, 9}, {6, 9}, {7, 9}};
 
-        Console.WriteLine("Initializing Grid...");
+        if (print > 0) Console.WriteLine("Initializing Grid...");
         InitGrid(blocked);
-        Console.WriteLine("Initial state:");
-        PrintGrid();
-        Console.WriteLine();
+        if (print > 0) Console.WriteLine("Initial state:");
+        if (print > 0) PrintGrid();
+        if (print > 0) Console.WriteLine();
         /*
            for (int i = 0; i < grid.GetLength(0); i++) {
            for (int j = 0; i < grid.GetLength(1); i++) {
@@ -45,8 +76,10 @@ class Pathfinder
            */
 
         int[] dest = new int[] {4, 7};
-        Move(dest);
-        // Move_alt(dest);
+        if (!alt) { Move(dest, print > 1 ? true : false); }
+        else { Move_alt(dest, print > 1 ? true : false); }
+
+        if (print > 0) PrintGrid();
     }
 
     public static void PrintGrid() {
@@ -77,7 +110,7 @@ class Pathfinder
         }
     }
 
-    public static void Move(int[] dest) {
+    public static void Move(int[] dest, bool print=false) {
         var past_moves = new HashSet<(int, int)>();
 
         while (m_points > 0 && !(origin[0] == dest[0] && origin[1] == dest[1])) {
@@ -106,18 +139,20 @@ class Pathfinder
                 dists.Add(d);
             }
 
-            dists.Sort();
+            dists.Sort();                           // O(n log n)
 
             past_moves.Add((origin[0], origin[1])); // add current location to past_moves
             origin = nbs[dists[0]];                 // move to neighbor closest to destination
             m_points--;
 
-            PrintGrid();
-            Console.WriteLine("Remaining moves: " + m_points + "\n");
+            if (print) {
+                PrintGrid();
+                Console.WriteLine("Remaining moves: " + m_points + "\n");
+            }
         }
     }
 
-    public static void Move_alt(int[] dest) {
+    public static void Move_alt(int[] dest, bool print=false) {
         while (m_points > 0 && !(origin[0] == dest[0] && origin[1] == dest[1])) {
             // has movement points and not at destination
             double best = -1.0;
@@ -149,8 +184,10 @@ class Pathfinder
             // TODO: find alternative to creating walls for preventing getting caught in a loop
             m_points--;
 
-            PrintGrid();
-            Console.WriteLine("Remaining moves: " + m_points + "\n");
+            if (print) {
+                PrintGrid();
+                Console.WriteLine("Remaining moves: " + m_points + "\n");
+            }
         }
     }
     public static int[][] FindNeighbors() {
