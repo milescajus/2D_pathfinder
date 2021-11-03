@@ -22,7 +22,7 @@ class Pathfinder
         a_avgs = new float[1000];
         
         for (int i = 0; i < n_avgs.Length; i++) {
-            (float, float) t = GetAvgs();
+            (float, float) t = GetAvgs(args.Length != 0 ? Int32.Parse(args[0]) : 0);
             n_avgs[i] = t.Item1;
             a_avgs[i] = t.Item2;
         }
@@ -36,7 +36,7 @@ class Pathfinder
         }
     }
 
-    public static (float, float) GetAvgs() {
+    public static (float, float) GetAvgs(int print) {
         int[] norm = new int[100];
         int[] alt = new int[100];
         float n_avg = 0;
@@ -44,13 +44,13 @@ class Pathfinder
 
         for (int i = 0; i < norm.Length ; i++) {
             m_points = 12; // Int32.Parse(args[0]);
-            RunSim(false);
+            RunSim(false, print);
             norm[i] = m_points;
         }
 
         for (int i = 0; i < alt.Length ; i++) {
             m_points = 12; // Int32.Parse(args[0]);
-            RunSim(true);
+            RunSim(true, print);
             alt[i] = m_points;
         }
 
