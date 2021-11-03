@@ -4,6 +4,7 @@
 // (c) 2021
 
 using System;
+using System.IO;
 using System.Collections.Generic;
 
 class Pathfinder
@@ -13,11 +14,33 @@ class Pathfinder
     static bool[,] grid;
     static int[] origin;
     static int m_points;
+    static float[] n_avgs;
+    static float[] a_avgs;
 
     public static void Main(string[] args) {
+        n_avgs = new float[1000];
+        a_avgs = new float[1000];
+        
+        for (int i = 0; i < n_avgs.Length; i++) {
+            (float, float) t = GetAvgs();
+            n_avgs[i] = t.Item1;
+            a_avgs[i] = t.Item2;
+        }
+
+        using var writer = new StreamWriter("stats.csv");
+
+        writer.WriteLine("Norm,Alt");
+
+        for (int i = 0; i < n_avgs.Length; i++) {
+            writer.WriteLine(n_avgs[i] + "," + a_avgs[i]);
+        }
+    }
+
+    public static (float, float) GetAvgs() {
         int[] norm = new int[100];
         int[] alt = new int[100];
-        float avg = 0;
+        float n_avg = 0;
+        float a_avg = 0;
 
         for (int i = 0; i < norm.Length ; i++) {
             m_points = 12; // Int32.Parse(args[0]);
@@ -32,19 +55,18 @@ class Pathfinder
         }
 
         foreach (int n in norm){
-            avg += n;
+            n_avg += n;
         }
 
-        Console.WriteLine(avg / norm.Length);
-
-        avg = 0;
+        n_avg /= norm.Length;
 
         foreach (int n in alt){
-            avg += n;
+            a_avg += n;
         }
 
-        Console.WriteLine(avg / alt.Length);
+        a_avg /= alt.Length;
 
+        return (n_avg, a_avg);
     }
 
     public static void RunSim(bool alt, int print=0) {
